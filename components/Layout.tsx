@@ -5,7 +5,7 @@ import Header from "./Header";
 const Layout: FC<{children: ReactNode}> = ({ children }) => {
   return (
     <Box width="full" height="100vh">
-      <Box position="absolute" width="full" height="70px" top="0">
+      <Box position="absolute" display='flex' alignItems="center" width="full" height="70px" top="0" left="0" border="1px">
         <Header />
       </Box>
       <Box marginBottom="10px">
