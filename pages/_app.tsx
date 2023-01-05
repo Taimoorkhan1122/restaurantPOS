@@ -34,7 +34,8 @@ const baseTheme = {
         "444xl": "30px",
     },
     shadows : {
-        innerShadow: `box-shadow: 0px -3px 7px 0px hsba(0, 0%, 0%, 0.1) inset`,
+        innerShadow: `0px -3px 7px 0px rgba(0, 0, 0, 0.1) inset;`,
+        boxShadow: `0px -5px 6px -1px rgba(0, 0, 0, 0.1);`,
     }
 };
 

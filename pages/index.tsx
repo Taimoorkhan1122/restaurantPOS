@@ -19,8 +19,9 @@ export default function Home() {
             <main>
                 {/* top container */}
                 <Layout>
-                    <Box minWidth="450px" shadow="innerShadow" minHeight="100vh">
+                    <Box minWidth="450px" minHeight="100vh">
                         <Container
+                            shadow="innerShadow"    
                             display="flex"
                             width="full"
                             height="270px"
