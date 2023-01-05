@@ -1,5 +1,5 @@
 import Head from "next/head";
-import {  Heading, Box, Container, CardBody, Icon } from "@chakra-ui/react";
+import { Heading, Box, Container, CardBody, Icon } from "@chakra-ui/react";
 import Layout from "../components/Layout";
 
 import "@fontsource/lato/300.css";
@@ -22,7 +22,7 @@ export default function Home() {
             <main>
                 {/* top container */}
                 <Layout>
-                        <HomeView />
+                    <HomeView />
                 </Layout>
             </main>
         </>
