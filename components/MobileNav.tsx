@@ -4,27 +4,36 @@ import { MdMenuBook } from "react-icons/md";
 import { FaCashRegister } from "react-icons/fa";
 
 const MobileNav = () => (
-    <Flex
-        as="nav"
-        mx="20px"
-        color="white"
-        width="full"
-        justifyContent="space-between"
-    >
+    <Flex as="nav" mx="20px" color="white" width="full" justifyContent="space-between">
         <Box>
-            <IconButton aria-label="Home" icon={<AiFillHome size="24px" />} color="white" variant="ghost" />
+            <IconButton
+                aria-label="Home"
+                icon={<AiFillHome size="24px" />}
+                color="white"
+                variant="ghost"
+            />
         </Box>
         <Box>
             <IconButton
                 aria-label="Orders"
-                icon={<FaCashRegister  size="24px" />}
+                icon={<FaCashRegister size="24px" />}
                 color="white"
                 variant="ghost"
             />
         </Box>
 
         {/* create button */}
-        <Box mt="-40px" bg="brand.white" shadow="boxShadow" borderRadius="100px" padding="20px">
+        <Box
+            mt="-26px"
+            display="flex"
+            h="60px"
+            w="60px"
+            justifyContent="center"
+            alignItems="center"
+            bg="brand.white"
+            shadow="boxShadow"
+            borderRadius="100px"
+        >
             <IconButton
                 aria-label="Create"
                 icon={<AiOutlinePlus size="20px" />}
@@ -36,7 +45,12 @@ const MobileNav = () => (
         </Box>
 
         <Box>
-            <IconButton aria-label="Menu" icon={<MdMenuBook size="24px" />} color="white" variant="ghost" />
+            <IconButton
+                aria-label="Menu"
+                icon={<MdMenuBook size="24px" />}
+                color="white"
+                variant="ghost"
+            />
         </Box>
         <Box>
             <IconButton

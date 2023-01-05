@@ -17,7 +17,15 @@ const Layout: FC<{ children: ReactNode }> = ({ children }) => {
             >
                 <Header />
             </Box>
-            <Box marginBottom="10px" height="calc(100vh - 56px)" overflowY="auto">{children}</Box>
+            <Box
+            paddingBottom="20px"
+                width="100vw"
+                maxWidth="450px"
+                height="calc(100% - 56px)"
+                overflowY="auto"
+            >
+                {children}
+            </Box>
             <Box
                 position="absolute"
                 left="0"

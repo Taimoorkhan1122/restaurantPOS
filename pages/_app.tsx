@@ -37,6 +37,8 @@ const baseTheme = {
     shadows : {
         innerShadow: `0px -3px 7px 0px rgba(0, 0, 0, 0.1) inset;`,
         boxShadow: `0px -5px 6px -1px rgba(0, 0, 0, 0.1);`,
+        cardShadow: `0px 2px 4px -1px rgba(0, 0, 0, 0.06), 0px 4px 6px -1px rgba(0, 0, 0, 0.1);`,
+        cardInnerShadow: `0px -2px 4px -1px rgb(0 0 0 / 6%) inset, 0px 6px 6px -1px rgb(0 0 0 / 10%) inset`
     }
 };
 

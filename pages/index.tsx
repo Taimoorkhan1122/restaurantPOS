@@ -1,13 +1,14 @@
 import Head from "next/head";
-import { Text, Heading, Box, Container } from "@chakra-ui/react";
+import {  Heading, Box, Container, CardBody, Icon } from "@chakra-ui/react";
 import Layout from "../components/Layout";
 
 import "@fontsource/lato/300.css";
 import "@fontsource/lato/400.css";
 import "@fontsource/lato/700.css";
 import "@fontsource/lato/900.css";
-import Card from "../components/Card";
 import CardContainer from "../components/Card";
+import { MdDashboardCustomize } from "react-icons/md";
+import HomeView from "../components/Home";
 
 export default function Home() {
     return (
@@ -21,16 +22,7 @@ export default function Home() {
             <main>
                 {/* top container */}
                 <Layout>
-                    <Box width="100vw" maxWidth="450px" height="full">
-                        <Container
-                            shadow="innerShadow"    
-                            display="flex"
-                            width="full"
-                            height="270px"
-                            bg="white"
-                        ></Container>
-                        <CardContainer />
-                    </Box>
+                        <HomeView />
                 </Layout>
             </main>
         </>
