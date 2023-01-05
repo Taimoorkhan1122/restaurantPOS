@@ -5,7 +5,7 @@ import MobileNav from "./MobileNav";
 
 const Layout: FC<{ children: ReactNode }> = ({ children }) => {
     return (
-        <Box width="full" height="100vh">
+        <Box width="full" height="full">
             <Box
                 position="absolute"
                 display="flex"
@@ -17,15 +17,15 @@ const Layout: FC<{ children: ReactNode }> = ({ children }) => {
             >
                 <Header />
             </Box>
-            <Box marginBottom="10px">{children}</Box>
+            <Box marginBottom="10px" height="calc(100vh - 56px)" overflowY="auto">{children}</Box>
             <Box
                 position="absolute"
-                display="flex"
-                alignItems="center"
                 left="0"
                 bottom="0"
-                width="full"
+                display="flex"
+                alignItems="center"
                 borderTopRadius="20px"
+                width="full"
                 height="56px"
                 bg="brand.main"
             >

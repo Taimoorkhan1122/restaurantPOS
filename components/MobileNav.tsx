@@ -5,7 +5,6 @@ import { FaCashRegister } from "react-icons/fa";
 
 const MobileNav = () => (
     <Flex
-        position="relative"
         as="nav"
         mx="20px"
         color="white"
@@ -25,7 +24,7 @@ const MobileNav = () => (
         </Box>
 
         {/* create button */}
-        <Box mt="-46px" bg="brand.white" shadow="boxShadow" borderRadius="100px" padding="20px">
+        <Box mt="-40px" bg="brand.white" shadow="boxShadow" borderRadius="100px" padding="20px">
             <IconButton
                 aria-label="Create"
                 icon={<AiOutlinePlus size="20px" />}
