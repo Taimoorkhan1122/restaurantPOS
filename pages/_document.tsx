@@ -4,17 +4,7 @@ export default function Document() {
     return (
         <Html lang="en">
             <Head>
-                <meta name="application-name" content="ta'am - serve better" />
-                <meta name="apple-mobile-web-app-capable" content="yes" />
-                <meta name="apple-mobile-web-app-status-bar-style" content="default" />
-                <meta name="apple-mobile-web-app-title" content="ta'am - serve better" />
-                <meta name="description" content="ta'am - restaurant POS mobile application" />
-                <meta name="format-detection" content="telephone=+923483324247" />
-                <meta name="mobile-web-app-capable" content="yes" />
-                <meta name="msapplication-config" content="/icons/browserconfig.xml" />
-                <meta name="msapplication-TileColor" content="#2B5797" />
-                <meta name="msapplication-tap-highlight" content="no" />
-                <meta name="theme-color" content="#EC7905" />
+                <link rel="manifest" href="/manifest.json" />
             </Head>
             <body>
                 <Main />
