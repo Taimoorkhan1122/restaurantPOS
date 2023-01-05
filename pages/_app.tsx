@@ -10,7 +10,7 @@ const baseTheme = {
         global: {
             main : {
                 bg: "#FBFCFC", 
-                height: "100%"
+                height: "100%",
             }
         }
     },
