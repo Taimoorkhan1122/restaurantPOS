@@ -1,6 +1,6 @@
 {
-  "name": "My PWA",
-  "short_name": "my-pwa-app",
+  "name": "Ta'am restaurant POS",
+  "short_name": "ta'am",
   "icons": [
     {
       "src": "ios/manifest-icon-192.maskable.png",
