@@ -70,7 +70,7 @@ const Dashboard = () => {
                                 <Stack px="8px" gap="4px" direction="column">
                                     {new Array(3).fill(15, 0, 3).map((i, ind) => (
                                         <Badge
-                                            key={i+ind}
+                                            key={i + ind}
                                             variant="subtle"
                                             color="brand.main"
                                             bg="brand.light"
@@ -106,9 +106,11 @@ const Dashboard = () => {
                             </CardBody>
                         </CardContainer>
                     </GridItem>
+                    
                     <GridItem rowSpan={1} colSpan={1}>
                         <CardContainer>hello</CardContainer>
                     </GridItem>
+                    
                     <GridItem rowSpan={1} colSpan={1}>
                         <CardContainer>hello</CardContainer>
                     </GridItem>
