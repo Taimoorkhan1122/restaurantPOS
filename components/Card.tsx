@@ -8,6 +8,8 @@ const CardContainer: FC<{ children: ReactNode }> = ({ children }) => {
             align="center"
             w="160px"
             h="130px"
+            p="0"
+            overflow="hidden"
             borderRadius={20}
             bg="brand.white"
             _hover={{
