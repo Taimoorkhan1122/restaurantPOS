@@ -1,6 +1,6 @@
 import { extendTheme } from "@chakra-ui/react";
 
-export const theme = {
+const myTheme = {
     styles: {
         global: {
             main: {
@@ -8,8 +8,8 @@ export const theme = {
                 height: "100%",
             },
             span: {
-                marginTop: '0 !important'
-            }
+                marginTop: "0 !important",
+            },
         },
     },
     colors: {
@@ -59,4 +59,4 @@ export const theme = {
     },
 };
 
-export default extendTheme(theme);
+export const theme = extendTheme(myTheme);

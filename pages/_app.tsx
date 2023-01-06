@@ -12,7 +12,7 @@ import "@fontsource/lato/900.css";
 import ".././styles/globals.css";
 import Layout from "../components/Layout";
 
-import theme from "./theme";
+import {theme} from "./theme";
 import { Suspense } from "react";
 
 // const PwaUpdater = dynamic(() => import("../utils/PwaUpdater"), { ssr: false });
