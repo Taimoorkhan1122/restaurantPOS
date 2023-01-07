@@ -5,7 +5,7 @@ const CategoryForm = ({ onClose }) => {
   return (
     <Box mx={5} my={5} >
 
-      <Text color={'brand.main'} fontWeight={'bold'} textAlign={'center'}  >Menu Form</Text>
+      <Text color={'brand.main'} fontWeight={'bold'} textAlign={'center'}  >Category Form</Text>
     
       <FormControl mb={3} >
         <Text as={'label'} >Name</Text>
