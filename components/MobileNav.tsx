@@ -1,11 +1,13 @@
-import { Box, Flex, IconButton, Text } from "@chakra-ui/react";
+import { Box, Flex, IconButton, Text, useDisclosure } from "@chakra-ui/react";
 import { AiFillSetting, AiFillHome, AiOutlinePlus } from "react-icons/ai";
 import { MdMenuBook } from "react-icons/md";
 import { FaCashRegister } from "react-icons/fa";
 import Link from "next/link";
+import FormModal from "./FormModal";
 
-const MobileNav = ({showCreate}:{showCreate: boolean}) => {
-    
+const MobileNav = ({ showCreate }: { showCreate: boolean }) => {
+    const { isOpen, onOpen, onClose } = useDisclosure()
+
     return (
         <Flex as="nav" mx="20px" color="white" width="full" justifyContent="space-between">
             <Link href="/" passHref>
@@ -14,9 +16,9 @@ const MobileNav = ({showCreate}:{showCreate: boolean}) => {
                     icon={<AiFillHome size="24px" />}
                     color="white"
                     variant="ghost"
-                    // _hover={{
-                    //     background: "none"
-                    // }}
+                // _hover={{
+                //     background: "none"
+                // }}
                 />
             </Link>
             <Link href="Orders" passHref>
@@ -49,6 +51,7 @@ const MobileNav = ({showCreate}:{showCreate: boolean}) => {
                         _hover={{ background: "blue", outline: "none" }}
                         variant="ghost"
                         borderRadius="100px"
+                        onClick={onOpen}
                     />
                 </Box>
             )}
@@ -69,6 +72,7 @@ const MobileNav = ({showCreate}:{showCreate: boolean}) => {
                     variant="ghost"
                 />
             </Link>
+            <FormModal isOpen={isOpen}  onClose={onClose} />
         </Flex>
     );
 };
