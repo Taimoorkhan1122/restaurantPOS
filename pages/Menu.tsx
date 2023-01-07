@@ -1,8 +1,6 @@
 import {
-    Badge,
     Box,
     CardBody,
-    CardHeader,
     Flex,
     Grid,
     GridItem,
@@ -13,8 +11,6 @@ import {
     Text,
     VStack,
 } from "@chakra-ui/react";
-import { Line } from 'react-chartjs-2';
-import Breadcrump from "../components/Breadcrump";
 import CardContainer from "../components/Card";
 import Image from 'next/image'
 import { FiEdit } from 'react-icons/fi'
