@@ -3,13 +3,13 @@ import { FC, ReactNode } from "react";
 
 
 
-const CardContainer: FC<{ children: ReactNode , title: string }> = ({ children, title }) => {
+const CardContainer: FC<{ width?: string, height?: string, children: ReactNode, title?: string }> = ({ children, title, height, width }) => {
     return (
         <Card
             shadow="cardShadow"
             align="center"
-            w="160px"
-            h="130px"
+            w={`${width ? width : "160px"}`}
+            h={`${height ? height : "130px"}`}
             p="0"
             display={'flex'}
             justifyContent={'space-between'}
@@ -20,9 +20,9 @@ const CardContainer: FC<{ children: ReactNode , title: string }> = ({ children, 
                 boxShadow: "var(--chakra-shadows-cardInnerShadow)"
             }}
         >
-                {children}
+            {children}
 
-            <Flex
+            {title && <Flex
                 mt="0px"
                 justify="flex-end"
                 align="center"
@@ -40,7 +40,7 @@ const CardContainer: FC<{ children: ReactNode , title: string }> = ({ children, 
                 >
                     {title}
                 </Heading>
-            </Flex>
+            </Flex>}
         </Card>
     );
 };
