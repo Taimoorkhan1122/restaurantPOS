@@ -1,5 +1,4 @@
 import { ChakraProvider } from "@chakra-ui/react";
-import type { AppProps } from "next/app";
 import Head from "next/head";
 import "reset-css";
 
@@ -17,11 +16,13 @@ import Layout from "../components/Layout";
 
 import { theme } from "../theme";
 import { Suspense } from "react";
+import { useRouter } from "next/router";
 
 // const PwaUpdater = dynamic(() => import("../utils/PwaUpdater"), { ssr: false });
 
-export default function App({ Component, pageProps }: AppProps) {
+export default function App({ Component, pageProps }: any) {
     const [supabase] = useState(() => createBrowserSupabaseClient());
+    const router = useRouter();
 
     return (
         <ChakraProvider theme={theme} cssVarsRoot="body">
@@ -37,11 +38,17 @@ export default function App({ Component, pageProps }: AppProps) {
                     <link rel="icon" href="/favicon.ico" />
                 </Head>
                 <main>
-                    <Layout>
-                        <Suspense fallback="loading....">
-                            <Component {...pageProps} />
-                        </Suspense>
-                    </Layout>
+                    {Component.authPage ? (
+                        <Component {...pageProps} />
+                    ) : router.pathname === "/RegisterRestaurant" ? (
+                        <Component {...pageProps} />
+                    ) : (
+                        <Layout>
+                            <Suspense fallback="loading....">
+                                <Component {...pageProps} />
+                            </Suspense>
+                        </Layout>
+                    )}
                 </main>
             </SessionContextProvider>
         </ChakraProvider>
