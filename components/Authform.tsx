@@ -22,8 +22,8 @@ import Link from "next/link";
 import cookie from "cookie-cutter";
 import { useRouter } from "next/router";
 
-import { FC, FormEvent, useState } from "react";
-import { useForm } from "react-hook-form";
+import { FC, useState } from "react";
+import { useForm, SubmitHandler, FieldValues } from "react-hook-form";
 
 import { mode as authMode } from "../utils/constansts";
 
@@ -56,39 +56,12 @@ const Authfrom: FC<{ mode: authMode }> = ({ mode }) => {
 
     const supabase = useSupabaseClient();
 
-    const onSubmit = (form: any, e: FormEvent<HTMLFormElement>) => {
-        e.preventDefault();
+    const onSubmit: SubmitHandler<FieldValues> = async () => {
         setValidationError({ name: "", message: { type: "", value: "" } });
         const [email, password] = getValues(["email", "password"]);
         console.log("mode: ", email, password);
-        authenticate(email, password);
+        await authenticate(email, password);
     };
-
-    // const signUp = async (email: string, password: string) => {
-    //     try {
-    //         const { data, error } = await supabase.auth.signUp({
-    //             email,
-    //             password,
-    //         });
-
-    //         if (error) {
-    //             console.log({ error });
-    //             setValidationError({
-    //                 name: error.name,
-    //                 message: {
-    //                     type: "validation",
-    //                     value: error.message,
-    //                 },
-    //             });
-    //             throw Error(validationError?.name, {
-    //                 cause: error.cause,
-    //             });
-    //         }
-    //         router.push("/Signin");
-    //     } catch (error) {
-    //         console.log(error);
-    //     }
-    // };
 
     const authenticate = async (email: string, password: string) => {
         try {
@@ -110,7 +83,6 @@ const Authfrom: FC<{ mode: authMode }> = ({ mode }) => {
                     .from("owner")
                     .select("email")
                     .eq("email", email);
-                console.log("user --------->", user);
                 if (user) {
                     return toast({
                         title: `User already Exist`,
