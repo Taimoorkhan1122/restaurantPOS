@@ -42,7 +42,7 @@ const Menu = () => {
                 my="1rem"
             >
                 {box1.map((item) => {
-                    return (<GridItem key={"menu_"+item} rowSpan={1} colSpan={1}>
+                    return (<GridItem key={`menu_${item}`} rowSpan={1} colSpan={1}>
 
 
                         <CardContainer height="230px" width="180px" >

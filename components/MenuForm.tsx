@@ -1,7 +1,7 @@
 import { Button, Text, Input, Box, FormControl, Select } from '@chakra-ui/react'
 import React from 'react'
 
-const MenuForm = ({ onClose }) => {
+const MenuForm: React.FC<{onClose: React.MouseEventHandler<HTMLButtonElement>}> = ({ onClose }) => {
   return (
     <Box mx={5} my={5} >
 

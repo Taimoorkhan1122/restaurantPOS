@@ -1,12 +1,19 @@
 import { Box } from "@chakra-ui/layout";
+import { useSession } from "@supabase/auth-helpers-react";
 import { useRouter } from "next/router";
 import React, { FC, ReactNode } from "react";
+import Signin from "../pages/Signin";
 import Breadcrump from "./Breadcrump";
 import Header from "./Header";
 import MobileNav from "./MobileNav";
 
 const Layout: FC<{ children: ReactNode }> = ({ children }) => {
     const { pathname } = useRouter();
+    const paths = ["/", "/signin", "/signup"];
+    const showBreadCrumps = paths.includes(pathname);
+    const session = useSession();
+
+
     return (
         <Box width="full" height="full">
             <Box
@@ -27,7 +34,7 @@ const Layout: FC<{ children: ReactNode }> = ({ children }) => {
                 height="calc(100% - 56px)"
                 overflowY="auto"
             >
-                {pathname !== "/" && (<Breadcrump location={pathname} />)}
+                {!showBreadCrumps && <Breadcrump location={pathname} />}
                 {children}
             </Box>
             <Box

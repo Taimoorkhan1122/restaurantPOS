@@ -37,58 +37,48 @@ const Home = () => {
     ];
     return (
         <>
-            {!session ? (
-                <Auth supabaseClient={supabase} appearance={{ theme: ThemeSupa }} theme="dark" />
-            ) : (
-                <>
-                    {/* header section */}
-                    <Container
-                        shadow="innerShadow"
-                        display="flex"
-                        width="full"
-                        height="270px"
-                        bg="white"
-                    ></Container>
+            {/* header section */}
+            <Container
+                shadow="innerShadow"
+                display="flex"
+                width="full"
+                height="270px"
+                bg="white"
+            ></Container>
 
-                    {/* menu section */}
+            {/* menu section */}
 
-                    <Grid
-                        h="full"
-                        templateRows={`repeat(${Math.ceil(homeButtons.length / 2)}, 1fr)`}
-                        templateColumns="repeat(2, 1fr)"
-                        justifyItems="center"
-                        gap={4}
-                        my="1rem"
-                    >
-                        {homeButtons.map((button) => (
-                            <GridItem key={`button_${button.name}`} rowSpan={1} colSpan={1}>
-                                <Link href={button.route} passHref>
-                                    <CardContainer>
-                                        <CardBody
-                                            display="flex"
-                                            flexDir="column"
-                                            justifyContent="center"
-                                            alignItems="center"
-                                            gridGap="16px"
-                                        >
-                                            <Icon
-                                                boxSize="24px"
-                                                color="brand.main"
-                                                as={button.icon}
-                                            />
-                                            <Box>
-                                                <Heading size="xs" textTransform="uppercase">
-                                                    {button.name}
-                                                </Heading>
-                                            </Box>
-                                        </CardBody>
-                                    </CardContainer>
-                                </Link>
-                            </GridItem>
-                        ))}
-                    </Grid>
-                </>
-            )}
+            <Grid
+                h="full"
+                templateRows={`repeat(${Math.ceil(homeButtons.length / 2)}, 1fr)`}
+                templateColumns="repeat(2, 1fr)"
+                justifyItems="center"
+                gap={4}
+                my="1rem"
+            >
+                {homeButtons.map((button) => (
+                    <GridItem key={`button_${button.name}`} rowSpan={1} colSpan={1}>
+                        <Link href={button.route} passHref>
+                            <CardContainer>
+                                <CardBody
+                                    display="flex"
+                                    flexDir="column"
+                                    justifyContent="center"
+                                    alignItems="center"
+                                    gridGap="16px"
+                                >
+                                    <Icon boxSize="24px" color="brand.main" as={button.icon} />
+                                    <Box>
+                                        <Heading size="xs" textTransform="uppercase">
+                                            {button.name}
+                                        </Heading>
+                                    </Box>
+                                </CardBody>
+                            </CardContainer>
+                        </Link>
+                    </GridItem>
+                ))}
+            </Grid>
         </>
     );
 };

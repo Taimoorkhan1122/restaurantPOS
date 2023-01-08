@@ -1,7 +1,7 @@
 import { Button, Text, Input, Box, FormControl } from '@chakra-ui/react'
 import React from 'react'
 
-const CategoryForm = ({ onClose }) => {
+const CategoryForm: React.FC<{onClose: React.MouseEventHandler<HTMLButtonElement>}> = ({ onClose }) => {
   return (
     <Box mx={5} my={5} >
 

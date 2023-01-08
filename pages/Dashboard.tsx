@@ -71,7 +71,7 @@ const box3 = [
         value: 8
     },
 ]
-const data = {
+const data: any = {
     labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'June', 'July'],
     options: {
         plugins: {
