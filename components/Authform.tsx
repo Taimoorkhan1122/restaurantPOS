@@ -83,7 +83,7 @@ const Authfrom: FC<{ mode: authMode }> = ({ mode }) => {
                     .from("owner")
                     .select("email")
                     .eq("email", email);
-                if (user) {
+                if (user.data) {
                     return toast({
                         title: `User already Exist`,
                         status: "info",
