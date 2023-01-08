@@ -36,9 +36,8 @@ const emailRegex =
     /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
 
 const Authfrom: FC<{ mode: authMode }> = ({ mode }) => {
-
     const toast = useToast();
-    const [loading, setLoading] = useState(false)
+    const [loading, setLoading] = useState(false);
     const {
         register,
         handleSubmit,
@@ -113,7 +112,6 @@ const Authfrom: FC<{ mode: authMode }> = ({ mode }) => {
                     .eq("email", email);
                 console.log("user --------->", user);
                 if (user) {
-                    
                     return toast({
                         title: `User already Exist`,
                         status: "info",
@@ -152,10 +150,13 @@ const Authfrom: FC<{ mode: authMode }> = ({ mode }) => {
                     position: "bottom",
                     isClosable: true,
                 });
-                
-            return mode === authMode.SIGNIN
-                ? router.push("/")
-                : router.push("/Signin");
+
+            const restaurant = await supabase.from("restaurant").select("id").eq("id", data?.user?.id);
+            if (!restaurant.data) {
+                return  router.push("/RegisterRestaurant");
+            }
+
+            return mode === authMode.SIGNIN ? router.push("/") : router.push("/Signin");
         } catch (error) {
             console.log(error);
         } finally {
