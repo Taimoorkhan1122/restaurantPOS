@@ -29,8 +29,8 @@ const Home = () => {
     const homeButtons = [
         { name: "dashboard", route: "/Dashboard", icon: MdDashboardCustomize },
         { name: "orders", route: "/Orders", icon: FaCashRegister },
-        { name: "categories", route: "/Categories", icon: MdFastfood },
-        { name: "menu", route: "/Menu", icon: MdMenuBook },
+        { name: "menu", route: "/Menu", icon: MdFastfood },
+        { name: "food", route: "/Food", icon: MdMenuBook },
         { name: "customers", route: "/Customeers", icon: FaUserFriends },
         { name: "staff", route: "/Staff", icon: BsPersonBoundingBox },
     ];

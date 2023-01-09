@@ -1,72 +1,111 @@
-import { Button, Text, Input, Box, FormControl, Select } from '@chakra-ui/react'
-import React from 'react'
+import { Button, Text, Input, Box, FormControl, useToast } from "@chakra-ui/react";
+import { useSupabaseClient, useUser } from "@supabase/auth-helpers-react";
+import React from "react";
+import { FieldValues, SubmitHandler, useForm } from "react-hook-form";
 
-const MenuForm: React.FC<{onClose: React.MouseEventHandler<HTMLButtonElement>}> = ({ onClose }) => {
-  return (
-    <Box mx={5} my={5} >
+const MenuForm: React.FC<{ onClose: React.MouseEventHandler<HTMLButtonElement> }> = ({
+    onClose,
+}) => {
+    const {
+        register,
+        handleSubmit,
+        formState: { isValid, errors, isDirty, isSubmitting },
+    } = useForm<{ name: string; details: string }>();
+    const toast = useToast();
 
-      <Text color={'brand.main'} fontWeight={'bold'} textAlign={'center'}  >Menu Form</Text>
-      <FormControl mb={3} >
-        <Text as={'label'} >Name</Text>
-        <Input borderColor={"#F5F5F5"} placeholder='Enter Name' />
-      </FormControl>
+    const supabase = useSupabaseClient();
+    const user = useUser();
 
-      <FormControl mb={3} >
-        <Text as={'label'} >Name</Text>
-        <Input borderColor={"#F5F5F5"} placeholder='Enter Name' />
-      </FormControl>
+    console.log(isValid);
 
-      <FormControl mb={3} >
-        <Text as={'label'} >Description</Text>
-        <Input borderColor={"#F5F5F5"} placeholder='Enter Description' />
-      </FormControl>
+    const onSubmit: SubmitHandler<FieldValues> = async (data) => {
+        try {
+            if (!data) throw Error("no fields provided");
 
-      <FormControl mb={3} >
-        <Text as={'label'} >Price</Text>
-        <Input borderColor={"#F5F5F5"} placeholder='Enter Price' />
-      </FormControl>
+            const restaurant = await supabase
+                .from("restaurant")
+                .select("id")
+                .eq("owned_by", user?.id);
 
-      <FormControl mb={3} >
-        <Text as={'label'} >Category</Text>
-        <Select
-          placeholder="Select category"
-          size="md"
-          borderColor={"#F5F5F5"}
-          _focusVisible={{
-            outline: "none",
-          }}
-        >
-          <option value="option3">Food</option>
-          <option value="option1">Time</option>
-          <option value="option2">Dish</option>
-        </Select>
-      </FormControl>
+            if (restaurant.error)
+                throw Error(
+                    "no fields provided",
+                    JSON.parse(JSON.stringify(restaurant.error.message)),
+                );
 
+            const { data: res, error } = await supabase.from("menu").insert({
+                ...data,
+                restaurant_id: restaurant.data[0].id,
+            });
 
-      <FormControl mb={3} >
-        <Text as={'label'} >Variant</Text>
-        <Select
-          borderColor={"#F5F5F5"}
-          placeholder="Add Variant"
-          size="md"
-          _focusVisible={{
-            outline: "none",
-          }}
-        >
-          <option value="option3">Food</option>
-          <option value="option1">Time</option>
-          <option value="option2">Dish</option>
-        </Select>
-      </FormControl>
+            if (error) {
+                toast({
+                    title: `error in adding menu `,
+                    status: "info",
+                    description: error.hint,
+                    variant: "subtle",
+                    position: "bottom",
+                    isClosable: true,
+                });
+                throw Error("error in adding menu", JSON.parse(JSON.stringify(error.message)));
+            }
 
-      <Box w={'full'} display={'flex'} justifyContent={'center'} alignItems={'center'} >
+            toast({
+                title: `Menu added `,
+                status: "info",
+                variant: "subtle",
+                position: "bottom",
+                isClosable: true,
+            });
+        } catch (error) {
+            console.log("error in adding menu: ", error);
+        } finally {
+          onClose();
+        }
+    };
 
-        <Button _hover={{ bg: 'brand.main' }} bg={'brand.main'} w={'30%'} color={'white'} onClick={onClose} >
-          Text
-        </Button>
-      </Box>
-    </Box>
-  )
-}
+    return (
+        <Box mx={5} my={5} as="form" onSubmit={handleSubmit(onSubmit)}>
+            <Text color={"brand.main"} fontWeight={"bold"} textAlign={"center"}>
+                Menu Form
+            </Text>
 
-export default MenuForm
+            <FormControl mb={3}>
+                <Text as={"label"}>Name</Text>
+                <Input
+                    {...register("name", {
+                        required: true,
+                    })}
+                    borderColor={"#F5F5F5"}
+                    placeholder="Enter Name"
+                />
+            </FormControl>
+
+            <FormControl mb={3}>
+                <Text as={"label"}>Detail</Text>
+                <Input
+                    {...register("details", {
+                        required: true,
+                    })}
+                    borderColor={"#F5F5F5"}
+                    placeholder="Enter details about menu"
+                />
+            </FormControl>
+
+            <Box w={"full"} display={"flex"} justifyContent={"center"} alignItems={"center"}>
+                <Button
+                    _hover={{ bg: "brand.main" }}
+                    bg={"brand.main"}
+                    w={"40%"}
+                    color={"white"}
+                    disabled={!isValid || isSubmitting}
+                    type="submit"
+                >
+                    Add Category
+                </Button>
+            </Box>
+        </Box>
+    );
+};
+
+export default MenuForm;

@@ -1,5 +1,6 @@
 import { ChevronRightIcon } from "@chakra-ui/icons";
 import { Breadcrumb, BreadcrumbItem, BreadcrumbLink } from "@chakra-ui/react";
+import Link from "next/link";
 import { useRouter } from "next/router";
 
 const Breadcrump = ({location}:{location: string}) => {
@@ -9,7 +10,7 @@ const Breadcrump = ({location}:{location: string}) => {
     return (
         <Breadcrumb mx="20px" my="10px" spacing="8px" separator={<ChevronRightIcon color="gray.500" />}>
             <BreadcrumbItem>
-                <BreadcrumbLink href={`/`}>Home</BreadcrumbLink>
+                <BreadcrumbLink as={Link} href={`/`}>Home</BreadcrumbLink>
             </BreadcrumbItem>
             {crumps.map((c) => (
                 <BreadcrumbItem key={`breadcrump_${c}`}>
