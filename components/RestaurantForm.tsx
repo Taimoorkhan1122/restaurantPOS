@@ -110,7 +110,7 @@ const Form2: React.FC<{ register: UseFormRegister<FieldValues> }> = ({ register 
 export default function Multistep({
     closeModal,
 }: {
-    closeModal?: ((this: Window, ev: Event) => any) | null;
+    closeModal?: (() => any);
 }) {
     const [step, setStep] = useState(1);
     const [progress, setProgress] = useState(50);
