@@ -17,6 +17,7 @@ import Layout from "../components/Layout";
 import { theme } from "../theme";
 import { Suspense } from "react";
 import { useRouter } from "next/router";
+import SidebarWithAvatar from "../components/SidebarWithAvatar";
 
 // const PwaUpdater = dynamic(() => import("../utils/PwaUpdater"), { ssr: false });
 

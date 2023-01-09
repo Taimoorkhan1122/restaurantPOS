@@ -6,6 +6,7 @@ import Signin from "../pages/Signin";
 import Breadcrump from "./Breadcrump";
 import Header from "./Header";
 import MobileNav from "./MobileNav";
+import SidebarWithAvatar from "./SidebarWithAvatar";
 
 const Layout: FC<{ children: ReactNode }> = ({ children }) => {
     const { pathname } = useRouter();
@@ -13,10 +14,9 @@ const Layout: FC<{ children: ReactNode }> = ({ children }) => {
     const showBreadCrumps = paths.includes(pathname);
     const session = useSession();
 
-
     return (
         <Box width="full" height="full">
-            <Box
+            {/* <Box
                 position="absolute"
                 display="flex"
                 alignItems="center"
@@ -25,17 +25,19 @@ const Layout: FC<{ children: ReactNode }> = ({ children }) => {
                 top="0"
                 left="0"
             >
-                <Header />
-            </Box>
+               
+            </Box> */}
             <Box
                 paddingBottom="20px"
                 width="100vw"
-                maxWidth="450px"
+                maxWidth="full"
                 height="calc(100% - 56px)"
                 overflowY="auto"
             >
-                {!showBreadCrumps && <Breadcrump location={pathname} />}
-                {children}
+                <SidebarWithAvatar user={session && session?.user}>
+                    {!showBreadCrumps && <Breadcrump location={pathname} />}
+                    {children}
+                </SidebarWithAvatar>
             </Box>
             <Box
                 position="absolute"
