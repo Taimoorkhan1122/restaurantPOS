@@ -1,8 +1,9 @@
-import { Box, Heading, Text } from "@chakra-ui/react";
+import { Box, Button, Flex, Heading, IconButton, Text } from "@chakra-ui/react";
 import React, { useRef } from "react";
 import useFileUpload from "react-use-file-upload";
+import { AiOutlineCloseSquare } from "react-icons/ai";
 
-const Upload = () => {
+const FileUpload = () => {
     const {
         files,
         fileNames,
@@ -23,7 +24,7 @@ const Upload = () => {
 
         const formData = createFormData();
         console.log("upload file ", formData);
-        
+
         try {
         } catch (error) {
             console.error("Failed to submit files.");
@@ -31,12 +32,14 @@ const Upload = () => {
     };
 
     return (
-        <Box>
+        <Flex w='full' direction="column" justify="center" align="center">
             <Heading fontSize={"2xl"} fontWeight={500} fontFamily={"body"}>
                 Upload Files
             </Heading>
 
-            <Text fontSize={"base"}>Please use the form to your right to upload any file(s) of your choosing.</Text>
+            <Text fontSize={"base"}>
+                Please use the form to your right to upload any file(s) of your choosing.
+            </Text>
 
             <div className="form-container">
                 {/* Display the files to be uploaded */}
@@ -47,39 +50,44 @@ const Upload = () => {
                                 <span>{name}</span>
 
                                 <span onClick={() => removeFile(name)}>
-                                    <i className="fa fa-times" />
+                                    <IconButton
+                                        aria-label="Orders"
+                                        color="black"
+                                        bg="none"
+                                        variant="ghost"
+                                        icon={<AiOutlineCloseSquare />}
+                                    />
                                 </span>
                             </li>
                         ))}
                     </ul>
-
-                    {files.length > 0 && (
-                        <ul>
-                            <li>File types found: {fileTypes.join(", ")}</li>
-                            <li>Total Size: {totalSize}</li>
-                            <li>Total Bytes: {totalSizeInBytes}</li>
-
-                            <li className="clear-all">
-                                <button onClick={() => clearAllFiles()}>Clear All</button>
-                            </li>
-                        </ul>
-                    )}
                 </div>
 
                 {/* Provide a drop zone and an alternative button inside it to upload files. */}
                 <Box
                     onDragEnter={handleDragDropEvent as any}
                     onDragOver={handleDragDropEvent as any}
-                    onDrop={(e : any) => {
+                    onDrop={(e: any) => {
                         handleDragDropEvent(e);
-                        setFiles(e, "a");
+                        setFiles(e);
                     }}
+                    display="flex"
+                    justifyContent='center'
                 >
-                    <p>Drag and drop files here</p>
-
-                    <button onClick={() => inputRef.current.click()}>
-                        Or select files to upload
-                    </button>
+                    <Button
+                        size="xs"
+                        bg="brand.dark"
+                        color="brand.white"
+                        disabled={files.length > 0}
+                        _hover={{
+                            color: "brand.main",
+                            bg: "brand.light",
+                        }}
+                        p="0"
+                        onClick={() => inputRef.current.click()}
+                    >
+                        select files to upload
+                    </Button>
 
                     {/* Hide the crappy looking default HTML input */}
                     <input
@@ -95,9 +103,22 @@ const Upload = () => {
                 </Box>
             </div>
 
-            <div className="submit">
-                <button onClick={handleSubmit}>Submit</button>
-            </div>
-        </Box>
+            <Box my="1rem">
+                <Button
+                    size="sm"
+                    bg="brand.main"
+                    color="brand.white"
+                    _hover={{
+                        color: "brand.main",
+                        bg: "brand.light",
+                    }}
+                    onClick={handleSubmit}
+                >
+                    Submit
+                </Button>
+            </Box>
+        </Flex>
     );
 };
+
+export default FileUpload;

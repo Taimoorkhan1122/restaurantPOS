@@ -12,11 +12,19 @@ import {
     SkeletonCircle,
     SkeletonText,
     useDisclosure,
+    Modal,
+    ModalCloseButton,
+    ModalBody,
+    ModalContent,
+    AvatarBadge,
+    IconButton,
 } from "@chakra-ui/react";
 import { useSupabaseClient, useUser } from "@supabase/auth-helpers-react";
-import { Router, useRouter } from "next/router";
+import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import EditForm from "../components/EditeForm";
+import FileUpload from "../components/FileUpload";
+import { AiFillEdit } from "react-icons/ai";
 
 export default function Profile() {
     const user = useUser();
@@ -24,6 +32,7 @@ export default function Profile() {
     const router = useRouter();
     const [restaurant, setRestaurant] = useState<null | any[]>(null);
     let { isOpen, onOpen, onClose } = useDisclosure();
+    let { isOpen: fileOpen, onOpen: onFileOpen, onClose: fileClose } = useDisclosure();
 
     useEffect(() => {
         const fetchRestaurant = async () => {
@@ -82,7 +91,23 @@ export default function Profile() {
                         css={{
                             border: "2px solid white",
                         }}
-                    />
+                    >
+                        <IconButton
+                        // as={AvatarBadge}
+                        position="absolute"
+                        bottom={0}
+                        right={-1}
+                        rounded="full"
+                        bg="brand.light"
+                        aria-label="Orders"
+                        color="brand.main"
+                        variant="outlined"
+                        minW="24px"
+                        h="24px"
+                        icon={<AiFillEdit size="14px"/>}
+                        onClick={onFileOpen}
+                        />
+                    </Avatar>
                 </Flex>
 
                 <Box p={6}>
@@ -127,6 +152,14 @@ export default function Profile() {
                 </Box>
             </Box>
             <EditForm title="Edit Profile" isOpen={isOpen} onClose={onClose} />
+            <Modal closeOnOverlayClick={false} isCentered isOpen={fileOpen} onClose={fileClose}>
+                <ModalContent w="90vw">
+                    <ModalCloseButton />
+                    <ModalBody display="flex" alignItems="flex-end">
+                        <FileUpload />
+                    </ModalBody>
+                </ModalContent>
+            </Modal>
         </Center>
     );
 }
