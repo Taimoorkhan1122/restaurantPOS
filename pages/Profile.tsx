@@ -31,6 +31,9 @@ export default function Profile() {
     const supabase = useSupabaseClient();
     const router = useRouter();
     const [restaurant, setRestaurant] = useState<null | any[]>(null);
+    const [avatarUrl, setAvatar] = useState<string>(
+        "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?ixlib=rb-1.2.1&q=80&fm=jpg&crop=faces&fit=crop&h=200&w=200&ixid=eyJhcHBfaWQiOjE3Nzg0fQ",
+    );
     let { isOpen, onOpen, onClose } = useDisclosure();
     let { isOpen: fileOpen, onOpen: onFileOpen, onClose: fileClose } = useDisclosure();
 
@@ -38,10 +41,22 @@ export default function Profile() {
         const fetchRestaurant = async () => {
             try {
                 const res = await supabase.from("restaurant").select().eq("owned_by", user?.id);
-                console.log("--->", res, user?.id);
 
                 if (!res.error && res.data) {
-                    return setRestaurant(res.data);
+                    if (!res.error && res.data) {
+                        setRestaurant(res.data);
+                        const { data } = await supabase.storage
+                            .from("test")
+                            .createSignedUrl(`${user?.id}/restaurant-log.png`, 60 * 60 * 24 * 7);
+                        if (!data) {
+                            throw Error("error in fetching avatar");
+                        }
+                        console.log("public url", data);
+
+                        setRestaurant(res.data);
+                        setAvatar(data.signedUrl);
+                        return;
+                    }
                 }
 
                 throw Error("error in fetching restaurnat", JSON.parse(JSON.stringify(res.error)));
@@ -84,28 +99,28 @@ export default function Profile() {
                 />
                 <Flex justify={"center"} mt={-12}>
                     <Avatar
+                        bg="white"
+                        loading="eager"
                         size={"xl"}
-                        src={
-                            "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?ixlib=rb-1.2.1&q=80&fm=jpg&crop=faces&fit=crop&h=200&w=200&ixid=eyJhcHBfaWQiOjE3Nzg0fQ"
-                        }
+                        src={avatarUrl}
                         css={{
                             border: "2px solid white",
                         }}
                     >
                         <IconButton
-                        // as={AvatarBadge}
-                        position="absolute"
-                        bottom={0}
-                        right={-1}
-                        rounded="full"
-                        bg="brand.light"
-                        aria-label="Orders"
-                        color="brand.main"
-                        variant="outlined"
-                        minW="24px"
-                        h="24px"
-                        icon={<AiFillEdit size="14px"/>}
-                        onClick={onFileOpen}
+                            // as={AvatarBadge}
+                            position="absolute"
+                            bottom={0}
+                            right={-1}
+                            rounded="full"
+                            bg="brand.light"
+                            aria-label="Orders"
+                            color="brand.main"
+                            variant="outlined"
+                            minW="24px"
+                            h="24px"
+                            icon={<AiFillEdit size="14px" />}
+                            onClick={onFileOpen}
                         />
                     </Avatar>
                 </Flex>
@@ -156,7 +171,7 @@ export default function Profile() {
                 <ModalContent w="90vw">
                     <ModalCloseButton />
                     <ModalBody display="flex" alignItems="flex-end">
-                        <FileUpload />
+                        <FileUpload onClose={fileClose} />
                     </ModalBody>
                 </ModalContent>
             </Modal>
