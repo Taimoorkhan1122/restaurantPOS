@@ -83,7 +83,9 @@ const Authfrom: FC<{ mode: authMode }> = ({ mode }) => {
                     .from("owner")
                     .select("email")
                     .eq("email", email);
-                if (user?.data) {
+                console.log("user -->", user);
+
+                if (user?.length) {
                     return toast({
                         title: `User already Exist`,
                         status: "info",
@@ -123,9 +125,12 @@ const Authfrom: FC<{ mode: authMode }> = ({ mode }) => {
                     isClosable: true,
                 });
 
-            const restaurant = await supabase.from("restaurant").select("id").eq("id", data?.user?.id);
+            const restaurant = await supabase
+                .from("restaurant")
+                .select("id")
+                .eq("id", data?.user?.id);
             if (!restaurant.data) {
-                return  router.push("/RegisterRestaurant");
+                return router.push("/RegisterRestaurant");
             }
 
             return mode === authMode.SIGNIN ? router.push("/") : router.push("/Signin");
