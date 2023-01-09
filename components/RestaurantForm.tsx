@@ -149,7 +149,7 @@ export default function Multistep({
                     return setRestaurant(res.data);
                 }
 
-                throw Error("error in fetching restaurnat", JSON.parse(JSON.stringify(res.error)));
+                throw Error("error in fetching restaurnat", JSON.parse(JSON.stringify(res.error.message)));
             } catch (error) {
                 console.log("error in fetching restaurnat :", error);
             }
@@ -160,13 +160,13 @@ export default function Multistep({
         };
     }, [supabase, user?.id]);
 
-    if (restaurant === null || !restaurant.length)
-        return (
-            <Box padding="6" boxShadow="lg" bg="white">
-                <SkeletonCircle size="10" />
-                <SkeletonText mt="4" noOfLines={4} spacing="4" skeletonHeight="2" />
-            </Box>
-        );
+    // if (restaurant === null || !restaurant.length)
+    //     return (
+    //         <Box padding="6" boxShadow="lg" bg="white">
+    //             <SkeletonCircle size="10" />
+    //             <SkeletonText mt="4" noOfLines={4} spacing="4" skeletonHeight="2" />
+    //         </Box>
+    //     );
 
     const UpdateOwner = async (data: FieldValues) => {
         const { firstName, lastName, profilePicture } = data;
