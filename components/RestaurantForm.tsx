@@ -27,7 +27,7 @@ import { useToast } from "@chakra-ui/react";
 import { useSupabaseClient, useUser } from "@supabase/auth-helpers-react";
 import { useRouter } from "next/router";
 
-const Form1: React.FC<{ register: UseFormRegister<FieldValues>}> = ({ register }) => {
+const Form1: React.FC<{ register: UseFormRegister<FieldValues> }> = ({ register }) => {
     return (
         <>
             <Heading w="100%" textAlign={"center"} fontWeight="normal" mb="24px">
@@ -106,11 +106,16 @@ const Form2: React.FC<{ register: UseFormRegister<FieldValues> }> = ({ register 
     );
 };
 
-export default function Multistep({ closeModal }: { closeModal?: () => void }) {
+
+export default function Multistep({
+    closeModal,
+}: {
+    closeModal?: ((this: Window, ev: Event) => any) | null;
+}) {
     const [step, setStep] = useState(1);
     const [progress, setProgress] = useState(50);
     const [restaurant, setRestaurant] = useState<null | any[]>(null);
-    
+
     const toast = useToast();
     const router = useRouter();
     const supabase = useSupabaseClient();
@@ -128,7 +133,7 @@ export default function Multistep({ closeModal }: { closeModal?: () => void }) {
         await UpdateOwner(data);
         if (restaurant?.length) {
             await UpdateRestaurant(data);
-            closeModal && closeModal()
+            closeModal && closeModal();
         } else {
             await registerRestaurant(data);
             router.push("/");
@@ -236,10 +241,13 @@ export default function Multistep({ closeModal }: { closeModal?: () => void }) {
         const { restaurantName, location } = data;
 
         try {
-            const { data, error } = await supabase.from("restaurant").update({
-                name: restaurantName,
-                location: location,
-            }).eq('owned_by', user?.id);
+            const { data, error } = await supabase
+                .from("restaurant")
+                .update({
+                    name: restaurantName,
+                    location: location,
+                })
+                .eq("owned_by", user?.id);
 
             if (error) {
                 toast({
@@ -282,11 +290,7 @@ export default function Multistep({ closeModal }: { closeModal?: () => void }) {
             >
                 <Box height="full">
                     <Progress hasStripe value={progress} mb="5%" mx="5%" isAnimated></Progress>
-                    {step === 1 ? (
-                        <Form1 register={register}  />
-                    ) : (
-                        <Form2 register={register} />
-                    )}
+                    {step === 1 ? <Form1 register={register} /> : <Form2 register={register} />}
                 </Box>
                 <ButtonGroup mb="5%" w="100%">
                     <Flex w="100%" justifyContent="space-between">
