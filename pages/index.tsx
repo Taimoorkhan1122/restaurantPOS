@@ -13,7 +13,6 @@ import {
 import CardContainer from "../components/Card";
 import { MdDashboardCustomize } from "react-icons/md";
 
-import { Auth, ThemeSupa } from "@supabase/auth-ui-react";
 import { useSession, useSupabaseClient } from "@supabase/auth-helpers-react";
 
 import { FaCashRegister, FaUserFriends } from "react-icons/fa";

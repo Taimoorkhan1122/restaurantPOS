@@ -9,7 +9,6 @@ import {
     VStack,
     Icon,
     useColorModeValue,
-    Link,
     Drawer,
     DrawerContent,
     Text,
@@ -21,6 +20,7 @@ import {
     MenuDivider,
     MenuItem,
     MenuList,
+    Link as ChakraLink,
 } from "@chakra-ui/react";
 import {
     FiHome,
@@ -33,9 +33,11 @@ import {
     FiChevronDown,
 } from "react-icons/fi";
 import { IconType } from "react-icons";
-import { ReactText } from "react";
 import Image from "next/image";
+import Link from "next/link";
 import { User } from "@supabase/supabase-js";
+import { useRouter } from "next/router";
+import { useSupabaseClient } from "@supabase/auth-helpers-react";
 
 interface LinkItemProps {
     name: string;
@@ -49,10 +51,29 @@ const LinkItems: Array<LinkItemProps> = [
     { name: "Settings", icon: FiSettings },
 ];
 
-export default function SidebarWithAvatar({ children, user }: { children: ReactNode; user: User | null }) {
+export default function SidebarWithAvatar({
+    children,
+    user,
+}: {
+    children: ReactNode;
+    user: User | null;
+}) {
     const { isOpen, onOpen, onClose } = useDisclosure();
-    console.log("sidebar container", user);
-    
+    const router = useRouter();
+    const supabase = useSupabaseClient();
+    const logOut = async () => {
+        try {
+            const { error } = await supabase.auth.signOut();
+            if (error) {
+             throw Error(JSON.parse(JSON.stringify(error)))
+            }
+            router.push("/Signin");
+        } catch (error) {
+            console.log("singout :",error);
+            
+        }
+    };
+
     return (
         <Box>
             <Drawer
@@ -69,7 +90,7 @@ export default function SidebarWithAvatar({ children, user }: { children: ReactN
                 </DrawerContent>
             </Drawer>
             {/* mobilenav */}
-            <MobileNav onOpen={onOpen} />
+            <MobileNav onOpen={onOpen} logout={logOut}/>
             <Box ml={{ base: 0 }} p="0">
                 {children}
             </Box>
@@ -110,11 +131,11 @@ const SidebarContent = ({ onClose, ...rest }: SidebarProps) => {
 
 interface NavItemProps extends FlexProps {
     icon: IconType;
-    children: ReactText;
+    children: ReactNode;
 }
 const NavItem = ({ icon, children, ...rest }: NavItemProps) => {
     return (
-        <Link href="#" style={{ textDecoration: "none" }} _focus={{ boxShadow: "none" }}>
+        <ChakraLink href="#" style={{ textDecoration: "none" }} _focus={{ boxShadow: "none" }}>
             <Flex
                 align="center"
                 p="4"
@@ -140,14 +161,15 @@ const NavItem = ({ icon, children, ...rest }: NavItemProps) => {
                 )}
                 {children}
             </Flex>
-        </Link>
+        </ChakraLink>
     );
 };
 
 interface MobileProps extends FlexProps {
     onOpen: () => void;
+    logout: () => void;
 }
-const MobileNav = ({ onOpen, ...rest }: MobileProps) => {
+const MobileNav = ({ onOpen, logout,...rest }: MobileProps) => {
     return (
         <Flex
             px={{ base: 4, md: 4 }}
@@ -200,11 +222,16 @@ const MobileNav = ({ onOpen, ...rest }: MobileProps) => {
                             bg={useColorModeValue("white", "gray.900")}
                             borderColor={useColorModeValue("gray.200", "gray.700")}
                         >
-                            <MenuItem>Profile</MenuItem>
-                            <MenuItem>Settings</MenuItem>
-                            <MenuItem>Billing</MenuItem>
-                            <MenuDivider />
-                            <MenuItem>Sign out</MenuItem>
+                            <Link href="/Profile">
+                                <MenuItem>Profile</MenuItem>
+                            </Link>
+                            <Link href="/Settings">
+                                <MenuItem>Settings</MenuItem>
+                            </Link>
+                            <Link href="/Billing">
+                                <MenuItem>Billing</MenuItem>
+                            </Link>
+                            <MenuItem onClick={logout}>SignOut</MenuItem>
                         </MenuList>
                     </Menu>
                 </Flex>

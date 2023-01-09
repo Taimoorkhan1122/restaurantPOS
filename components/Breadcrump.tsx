@@ -7,7 +7,7 @@ const Breadcrump = ({location}:{location: string}) => {
     console.log(crumps);
 
     return (
-        <Breadcrumb mx="20px" mt="55px" mb="1rem" spacing="8px" separator={<ChevronRightIcon color="gray.500" />}>
+        <Breadcrumb mx="20px" my="10px" spacing="8px" separator={<ChevronRightIcon color="gray.500" />}>
             <BreadcrumbItem>
                 <BreadcrumbLink href={`/`}>Home</BreadcrumbLink>
             </BreadcrumbItem>
