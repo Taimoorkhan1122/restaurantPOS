@@ -136,7 +136,7 @@ export default function Multistep({
             closeModal && closeModal();
         } else {
             await registerRestaurant(data);
-            router.push("/");
+            router.push("/Profile");
         }
     };
 
