@@ -129,8 +129,11 @@ const Authfrom: FC<{ mode: authMode }> = ({ mode }) => {
                 .from("restaurant")
                 .select("id")
                 .eq("id", data?.user?.id);
+
             if (!restaurant.data?.length) {
-                return router.push("/RegisterRestaurant");
+                mode === authMode.SIGNIN
+                    ? router.push("/RegisterRestaurant")
+                    : router.push("/Signin");
             }
 
             return mode === authMode.SIGNIN ? router.push("/") : router.push("/Signin");
