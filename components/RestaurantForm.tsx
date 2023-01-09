@@ -27,20 +27,23 @@ import { useToast } from "@chakra-ui/react";
 import { useSupabaseClient, useUser } from "@supabase/auth-helpers-react";
 import { useRouter } from "next/router";
 
-const Form1: React.FC<{ register: UseFormRegister<FieldValues> }> = ({ register }) => {
+const Form1: React.FC<{ register: UseFormRegister<FieldValues>; isRequired: boolean }> = ({
+    register,
+    isRequired,
+}) => {
     return (
         <>
             <Heading w="100%" textAlign={"center"} fontWeight="normal" mb="24px">
                 Onwner Info
             </Heading>
-            <Flex gap="4">
+            <Flex gap="4" mb="4">
                 <FormControl mr="5%">
                     <FormLabel htmlFor="firstName" fontWeight={"normal"}>
                         First name
                     </FormLabel>
                     <Input
                         {...register("firstName", {
-                            required: true,
+                            required: isRequired,
                         })}
                         placeholder="First name"
                     />
@@ -52,7 +55,7 @@ const Form1: React.FC<{ register: UseFormRegister<FieldValues> }> = ({ register 
                     </FormLabel>
                     <Input
                         {...register("lastName", {
-                            required: true,
+                            required: isRequired,
                         })}
                         placeholder="First name"
                     />
@@ -64,14 +67,17 @@ const Form1: React.FC<{ register: UseFormRegister<FieldValues> }> = ({ register 
                     Profile Picture
                 </FormLabel>
                 <InputGroup size="md">
-                    <Input pr="4.5rem" {...register("profilePicture")} />
+                    <Input {...register("profilePicture")} />
                 </InputGroup>
             </FormControl>
         </>
     );
 };
 
-const Form2: React.FC<{ register: UseFormRegister<FieldValues> }> = ({ register }) => {
+const Form2: React.FC<{ register: UseFormRegister<FieldValues>; isRequired: boolean }> = ({
+    register,
+    isRequired,
+}) => {
     return (
         <>
             <Heading w="100%" textAlign={"center"} fontWeight="normal" mb="24px">
@@ -84,7 +90,7 @@ const Form2: React.FC<{ register: UseFormRegister<FieldValues> }> = ({ register 
                     </FormLabel>
                     <Input
                         {...register("restaurantName", {
-                            required: true,
+                            required: isRequired,
                         })}
                         placeholder="Restaurant name"
                     />
@@ -96,7 +102,7 @@ const Form2: React.FC<{ register: UseFormRegister<FieldValues> }> = ({ register 
                     </FormLabel>
                     <Input
                         {...register("location", {
-                            required: true,
+                            required: isRequired,
                         })}
                         placeholder="street # 05 plote no 01"
                     />
@@ -106,12 +112,7 @@ const Form2: React.FC<{ register: UseFormRegister<FieldValues> }> = ({ register 
     );
 };
 
-
-export default function Multistep({
-    closeModal,
-}: {
-    closeModal?: (() => any);
-}) {
+export default function Multistep({ closeModal }: { closeModal?: () => any }) {
     const [step, setStep] = useState(1);
     const [progress, setProgress] = useState(50);
     const [restaurant, setRestaurant] = useState<null | any[]>(null);
@@ -149,7 +150,10 @@ export default function Multistep({
                     return setRestaurant(res.data);
                 }
 
-                throw Error("error in fetching restaurnat", JSON.parse(JSON.stringify(res.error.message)));
+                throw Error(
+                    "error in fetching restaurnat",
+                    JSON.parse(JSON.stringify(res.error.message)),
+                );
             } catch (error) {
                 console.log("error in fetching restaurnat :", error);
             }
@@ -175,7 +179,7 @@ export default function Multistep({
             const res = await supabase
                 .from("owner")
                 .update({
-                    username: `owner_res_${firstName}`,
+                    username: firstName`owner_res_${firstName}`,
                     full_name: firstName + " " + lastName,
                     avatar_url: profilePicture,
                 })
@@ -280,7 +284,7 @@ export default function Multistep({
                 width="100vw"
                 height="full"
                 minHeight="400px"
-                p={restaurant?.length ? 0 : 6}
+                p={restaurant?.length ? 4 : 6}
                 m="1.5rem 0 auto"
                 as="form"
                 display="flex"
@@ -290,7 +294,11 @@ export default function Multistep({
             >
                 <Box height="full">
                     <Progress hasStripe value={progress} mb="5%" mx="5%" isAnimated></Progress>
-                    {step === 1 ? <Form1 register={register} /> : <Form2 register={register} />}
+                    {step === 1 ? (
+                        <Form1 register={register} isRequired={!!restaurant?.length} />
+                    ) : (
+                        <Form2 register={register} isRequired={!!restaurant?.length} />
+                    )}
                 </Box>
                 <ButtonGroup mb="5%" w="100%">
                     <Flex w="100%" justifyContent="space-between">
@@ -334,7 +342,7 @@ export default function Multistep({
                                 type="submit"
                                 disabled={isSubmitting}
                             >
-                                {restaurant?.length ? "Update" : "Submit"}
+                                {!restaurant?.length ? "Submit" : "Update"}
                             </Button>
                         ) : null}
                     </Flex>

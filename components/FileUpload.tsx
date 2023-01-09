@@ -39,7 +39,7 @@ const PreviewImage = forwardRef<BoxProps, typeof Box>((props, ref) => {
     );
 });
 
-const FileUpload: FC<{ onClose: () => void }> = ({ onClose }) => {
+const FileUpload: FC<{ onClose?: () => void }> = ({ onClose }) => {
     const {
         register,
         handleSubmit,
@@ -93,12 +93,12 @@ const FileUpload: FC<{ onClose: () => void }> = ({ onClose }) => {
         } catch (error) {
             console.error("Failed to submit files.", error);
         } finally {
-            onClose();
+            onClose && onClose();
         }
     };
 
     return (
-        <Container my="12">
+        <Container my="6">
             <AspectRatio width="full" ratio={1}>
                 <Box
                     flexDirection="column"
