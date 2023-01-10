@@ -8,6 +8,7 @@ import {
     Grid,
     GridItem,
     LinkOverlay,
+    Text,
 } from "@chakra-ui/react";
 
 import CardContainer from "../components/Card";
@@ -20,6 +21,7 @@ import { MdFastfood } from "react-icons/md";
 import { MdMenuBook } from "react-icons/md";
 import { BsPersonBoundingBox } from "react-icons/bs";
 import Link from "next/link";
+import Image from "next/image";
 
 const Home = () => {
     const session = useSession();
@@ -38,12 +40,50 @@ const Home = () => {
         <>
             {/* header section */}
             <Container
-                shadow="innerShadow"
+                // shadow="innerShadow"
                 display="flex"
                 width="full"
                 height="270px"
-                bg="white"
-            ></Container>
+                padding="1rem"
+                bg="brand.white"
+                position="relative"
+            >
+                <Box
+                    display="flex"
+                    alignItems="center"
+                    w="full"
+                    h="full"
+                    rounded="10px"
+                    bg="brand.light"
+                    position="relative"
+                    top="0"
+                >
+                    <Box
+                        clipPath="ellipse(160px 140px at right center);"
+                        w="45%"
+                        h="full"
+                        position="absolute"
+                        bg="white"
+                        roundedLeft="full"
+                        right="0"
+                    >
+                        <Image fill src="/assets/bg.png" alt="promotional banner" />
+                    </Box>
+                    <Box position="relative" ml="1rem" minH="80px">
+                        <Flex
+                            direction="column"
+                            justifyContent="flex-end"
+                            gap="1rem"
+                            h="full"
+                        >
+                            <Image width={122} height={80} src="/logo.png" alt="promotional banner" />
+                            <Text ml="10px" fontSize={"12px"}>
+                                See what&apos;s new
+                            </Text>
+                        </Flex>
+                    </Box>
+                </Box>
+            </Container>
 
             {/* menu section */}
 
