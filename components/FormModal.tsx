@@ -11,7 +11,7 @@ import {
     Button,
 } from '@chakra-ui/react'
 import { useRouter } from 'next/router';
-import CategoryForm from './MenuForm';
+import FoodForm from './FoodForm';
 import MenuForm from './MenuForm';
 
 
@@ -22,7 +22,7 @@ const FormModal: FC<{ isOpen?: any, onClose?: any }> = ({ isOpen, onClose }) => 
         <Modal isOpen={isOpen} onClose={onClose}>
             <ModalOverlay />
             <ModalContent>
-                {pathname == '/Categories' && <CategoryForm onClose={onClose} />}
+                {pathname == '/Food' && <FoodForm onClose={onClose} />}
                 {pathname == '/Menu' && <MenuForm onClose={onClose} />}
             </ModalContent>
         </Modal>
