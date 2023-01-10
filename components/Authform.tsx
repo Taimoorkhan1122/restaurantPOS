@@ -128,8 +128,8 @@ const Authfrom: FC<{ mode: authMode }> = ({ mode }) => {
             const restaurant = await supabase
                 .from("restaurant")
                 .select("id")
-                .eq("id", data?.user?.id);
-
+                .eq("owned_by", data?.user?.id);
+    
             if (!restaurant.data?.length) {
                return mode === authMode.SIGNIN
                     ? router.push("/RegisterRestaurant")

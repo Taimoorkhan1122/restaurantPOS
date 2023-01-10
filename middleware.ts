@@ -1,8 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
-import Cors from "cors";
 
 export default function middleware(req: NextRequest, res: NextResponse) {
-    req.headers.set("Access-Control-Allow-Origin", "http://localhost:3000");
+    req.headers.set("Access-Control-Allow-Origin", "*");
     const token = req.cookies.get("supabase-auth-token");
     console.log("session token :"+ JSON.stringify(token));
     if (!token) {
