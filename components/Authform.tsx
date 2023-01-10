@@ -129,6 +129,14 @@ const Authfrom: FC<{ mode: authMode }> = ({ mode }) => {
                 .from("restaurant")
                 .select("id")
                 .eq("owned_by", data?.user?.id);
+
+                toast({
+                    title: `authmode ${mode}`,
+                    status: "info",
+                    variant: "subtle",
+                    position: "bottom",
+                    isClosable: false,
+                })
     
             if (!restaurant.data?.length) {
                return mode === authMode.SIGNIN
@@ -137,6 +145,7 @@ const Authfrom: FC<{ mode: authMode }> = ({ mode }) => {
             }
 
             return mode === authMode.SIGNIN ? router.push("/") : router.push("/Signin");
+       
         } catch (error) {
             console.log(error);
         } finally {
