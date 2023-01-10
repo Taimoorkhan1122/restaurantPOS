@@ -130,13 +130,7 @@ const Authfrom: FC<{ mode: authMode }> = ({ mode }) => {
                 .select("id")
                 .eq("owned_by", data?.user?.id);
 
-                toast({
-                    title: `authmode ${mode}`,
-                    status: "info",
-                    variant: "subtle",
-                    position: "bottom",
-                    isClosable: false,
-                })
+               
     
             if (!restaurant.data?.length) {
                return mode === authMode.SIGNIN
