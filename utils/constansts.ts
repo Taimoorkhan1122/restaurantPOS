@@ -1,6 +1,6 @@
 export const enum mode {
-    SIGNIN,
-    SINGUP
+    SIGNIN = 1,
+    SINGUP = 2
 }
 
 export const enum createOrUpdate {
