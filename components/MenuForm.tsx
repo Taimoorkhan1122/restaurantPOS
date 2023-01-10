@@ -3,7 +3,7 @@ import { useSupabaseClient, useUser } from "@supabase/auth-helpers-react";
 import React from "react";
 import { FieldValues, SubmitHandler, useForm } from "react-hook-form";
 
-const MenuForm: React.FC<{ onClose: React.MouseEventHandler<HTMLButtonElement> }> = ({
+const MenuForm: React.FC<{ onClose: () => void }> = ({
     onClose,
 }) => {
     const {
