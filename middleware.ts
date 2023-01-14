@@ -5,7 +5,7 @@ export default function middleware(req: NextRequest, res: NextResponse) {
     const token = req.cookies.get("supabase-auth-token");
     console.log("session token :"+ JSON.stringify(token));
     if (!token) {
-        return NextResponse.redirect(new URL("/Signup", req.url));
+        return NextResponse.redirect(new URL("/authentication", req.url));
     }
 }
 

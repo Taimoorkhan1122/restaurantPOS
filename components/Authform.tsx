@@ -268,7 +268,7 @@ const Authfrom: FC<{ mode: authMode }> = ({ mode }) => {
                                     <>
                                         Already a user?{" "}
                                         <Link href="/Signin" color={"blue.400"}>
-                                            Login
+                                            Sign In
                                         </Link>
                                     </>
                                 )}
