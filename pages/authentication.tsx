@@ -21,33 +21,54 @@ const Authentication = () => {
       direction="column"
       align="center"
     >
-      <Box p="1rem" bg="white" w="full" flex={8} roundedBottom="1rem">
-        {/* animation container */}
-        <Flex
-          rounded="20px"
-          overflow="hidden"
+      <Flex
+        direction="column"
+        justify="flex-end"
+        p="1rem"
+        bg="white"
+        w="full"
+        flex={7}
+      >
+        <Box
+          display="flex"
+          flexDirection="column"
+          justifyContent="flex-end"
           bg="brand.light"
-          w="full"
-          h="300px"
-          m="0 auto 1rem"
+          h="full"
+          rounded="20px"
+          p="1rem"
+          pb="2rem"
+          mb="-40px"
+          
         >
-          {View}
-        </Flex>
-        <Flex
-          m="2rem 0 0"
-          gap="1rem"
-          justify="center"
-          align="flex-start"
-          direction="column"
-        >
-          <Heading size="lg" fontWeight="black">
-            Get on board and <br /> start serving!
-          </Heading>
-          <Text color="brand.gray" fontSize="md">
-            Register your restaurant and discover the best customer services
-          </Text>
-        </Flex>
-      </Box>
+          {/* animation container */}
+          <Flex
+            rounded="20px"
+            overflow="hidden"
+            bg="brand.light"
+            w="full"
+            h="full"
+            m="0 auto"
+            align="flex-end"
+          >
+            {View}
+          </Flex>
+          <Flex
+            m="2rem 0 0"
+            gap="1rem"
+            justify="center"
+            align="flex-start"
+            direction="column"
+          >
+            <Heading size="lg" fontWeight="black">
+              Get on board and <br /> start serving!
+            </Heading>
+            <Text color="brand.gray" fontSize="md">
+              Register your restaurant and discover the best customer services
+            </Text>
+          </Flex>
+        </Box>
+      </Flex>
       <Box
         display="flex"
         justifyContent="center"
