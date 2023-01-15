@@ -21,7 +21,7 @@ const box1 = [
 
 const Food = () => {
     return (
-        <VStack gap="20px">
+        <VStack gap="20px" mx="1rem" >
             <Select
                 placeholder="Search dish"
                 size="md"
@@ -38,14 +38,15 @@ const Food = () => {
                 // templateRows={`repeat(6, 1fr)`}
                 templateColumns="repeat(2, 1fr)"
                 justifyItems="center"
-                gap={10}
+                gap={2}
                 my="1rem"
+                width='full'
             >
                 {box1.map((item) => {
                     return (<GridItem key={`menu_${item}`} rowSpan={1} colSpan={1}>
 
 
-                        <CardContainer height="230px" width="180px" >
+                        <CardContainer height="230px" >
                             <CardBody
                                 display="flex"
                                 flexDir="column"

@@ -21,7 +21,7 @@ const FormModal: FC<{ isOpen?: any, onClose?: any }> = ({ isOpen, onClose }) => 
     return (
         <Modal isOpen={isOpen} onClose={onClose}>
             <ModalOverlay />
-            <ModalContent>
+            <ModalContent maxW='350px'>
                 {pathname == '/Food' && <FoodForm onClose={onClose} />}
                 {pathname == '/Menu' && <MenuForm onClose={onClose} />}
             </ModalContent>

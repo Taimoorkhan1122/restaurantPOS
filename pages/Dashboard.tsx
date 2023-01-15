@@ -138,7 +138,7 @@ const Dashboard = () => {
                     my="1rem"
                 >
                     <GridItem rowSpan={1} colSpan={1}>
-                        <CardContainer title={"total Order"}>
+                        <CardContainer title={"total Order"} noHover={true}>
                             <CardHeader w="full" position="relative">
                                 <Heading
                                     position="absolute"
