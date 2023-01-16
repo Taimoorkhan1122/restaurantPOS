@@ -43,7 +43,10 @@ const restaurantReducer = (state: Restaurant, action: RestaurantAction): Restaur
 };
 
 const defaultState: Restaurant = {
-  restaurantInfo: {},
+  restaurantInfo: {
+    restaurant: "",
+    user: "",
+  },
   food: [],
   menu: [],
   staff: [],
