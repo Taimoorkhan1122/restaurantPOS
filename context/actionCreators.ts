@@ -1,5 +1,6 @@
 import { RestaurantAction } from "./restaurantContext";
 
 export const actionCreators = {
-  init: ({ type, payload }: RestaurantAction) => ({ type, payload }),
+  init: (action: RestaurantAction) => ({ ...action }),
+  addFood: ( action : RestaurantAction) => ({ ...action }),
 };

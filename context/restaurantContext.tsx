@@ -5,15 +5,17 @@ interface Props {
 }
 
 type Restaurant = {
-  restaurantInfo: {};
-  food: {}[];
-  menu: {}[];
+  restaurantInfo: {
+    user: string;
+    restaurant: string;
+  };
+  food: { name: string; id: string; price: number }[];
+  menu: { name: string; id: string }[];
   staff: {}[];
   table: {}[];
 };
 
 export type RestaurantAction = { type: any; payload: any };
-
 
 const restaurantReducer = (state: Restaurant, action: RestaurantAction): Restaurant => {
   switch (action.type) {
@@ -21,6 +23,12 @@ const restaurantReducer = (state: Restaurant, action: RestaurantAction): Restaur
       return {
         ...state,
         ...action.payload,
+      };
+
+    case "ADD_FOOD":
+      return {
+        ...state,
+        food: [...state.food, action.payload],
       };
 
     default:
@@ -46,12 +54,6 @@ export const RestaurantContext = createContext<{
   restaurant: Restaurant;
   setRestaurant: React.Dispatch<RestaurantAction>;
 }>(myRestaurant);
-
-type reducerType = (
-  state: Restaurant,
-  action: RestaurantAction,
-  ...rest: any
-) => Promise<Restaurant> | Restaurant;
 
 export const RestaurantProvider: React.FC<Props> = ({ children }) => {
   const [restaurant, setRestaurant] = useReducer(restaurantReducer, defaultState);

@@ -34,7 +34,7 @@ const Food = () => {
 
   return (
     <VStack gap="20px" mx="1rem">
-      <Select
+      {/* <Select
         placeholder="Search dish"
         size="md"
         _focusVisible={{
@@ -44,7 +44,7 @@ const Food = () => {
         <option value="option3">Biryani</option>
         <option value="option1">Karahi</option>
         <option value="option2">Korma</option>
-      </Select>
+      </Select> */}
       <Grid
         h="full"
         // templateRows={`repeat(6, 1fr)`}
