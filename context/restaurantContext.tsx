@@ -30,6 +30,11 @@ const restaurantReducer = (state: Restaurant, action: RestaurantAction): Restaur
         ...state,
         food: [...state.food, action.payload],
       };
+    case "ADD_MENU":
+      return {
+        ...state,
+        menu: [...state.menu, action.payload],
+      };
 
     default:
       console.log("default...");

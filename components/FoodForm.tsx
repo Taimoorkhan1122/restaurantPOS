@@ -51,12 +51,9 @@ const FoodForm: React.FC<{
 
       setRestaurant(
         actionCreators.addFood({
-          type: "ADD_FOOD",
-          payload: {
-            name,
-            id,
-            price,
-          },
+          name,
+          id,
+          price,
         })
       );
 

@@ -27,14 +27,11 @@ const Layout: FC<{ children: ReactNode }> = ({ children }) => {
       if (food.length && menu.length) {
         setRestaurant(
           actionCreators.init({
-            type: "INIT",
-            payload: {
-              menu,
-              food,
-              restaurantInfo: {
-                user: session?.user?.id,
-                restaurant: id,
-              },
+            menu,
+            food,
+            restaurantInfo: {
+              user: session?.user?.id,
+              restaurant: id,
             },
           })
         );
