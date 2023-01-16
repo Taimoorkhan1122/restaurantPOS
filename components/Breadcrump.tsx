@@ -5,7 +5,6 @@ import { useRouter } from "next/router";
 
 const Breadcrump = ({location}:{location: string}) => {
     const crumps = location.split("/").filter((d) => d.length);
-    console.log(crumps);
 
     return (
         <Breadcrumb mx="20px" my="10px" spacing="8px" separator={<ChevronRightIcon color="gray.500" />}>

@@ -1,5 +1,4 @@
 import React, { createContext, useContext, useReducer } from "react";
-import { supabaseClient } from "./dbClient";
 
 interface Props {
   children: React.ReactNode;
@@ -7,65 +6,21 @@ interface Props {
 
 type Restaurant = {
   restaurantInfo: {};
-  food: [];
-  menu: [];
-  staff: [];
-  table: [];
+  food: {}[];
+  menu: {}[];
+  staff: {}[];
+  table: {}[];
 };
 
-type RestaurantAction = { type: any; payload: any };
+export type RestaurantAction = { type: any; payload: any };
 
-const restaurantReducer = (
-  state: Restaurant,
-  action: RestaurantAction
-): Restaurant => {
+
+const restaurantReducer = (state: Restaurant, action: RestaurantAction): Restaurant => {
   switch (action.type) {
     case "INIT":
-      let menu;
-      let food;
-
-      supabaseClient
-        .rpc("fetch_food_with_menu", {
-          rest_id: action.payload.restaurant,
-        })
-        .then(({ data, error }) => {
-          if (error) console.error('function call =>',error);
-          else console.log("function call =>", data);
-        });
-
-      // supabaseClient
-      //   .from("menu")
-      //   .select("*")
-      //   .eq("restaurant_id", action.payload.restaurant?.id)
-      //   .then(({ data, error }) => {
-      //     if (data) {
-      //       console.log("response data ", data);
-      //       menu = data;
-      //     }
-      //     if (error) {
-      //       console.log("response data ", error);
-      //     }
-      //   });
-
-      // supabaseClient
-      //   .from("food")
-      //   .select("*")
-      //   .eq("menu_id", menu)
-      //   .then(({ data, error }) => {
-      //     if (data) {
-      //       console.log("response data ", data);
-      //       menu = data
-      //     }
-      //     if (error) {
-      //       console.log("response data ", error);
-      //     }
-      //   });
-
       return {
         ...state,
-        menu: menu || [],
-        food: action.payload.food || [],
-        restaurantInfo: action.payload.restaurantInfo || {},
+        ...action.payload,
       };
 
     default:
@@ -92,11 +47,14 @@ export const RestaurantContext = createContext<{
   setRestaurant: React.Dispatch<RestaurantAction>;
 }>(myRestaurant);
 
+type reducerType = (
+  state: Restaurant,
+  action: RestaurantAction,
+  ...rest: any
+) => Promise<Restaurant> | Restaurant;
+
 export const RestaurantProvider: React.FC<Props> = ({ children }) => {
-  const [restaurant, setRestaurant] = useReducer(
-    restaurantReducer,
-    defaultState
-  );
+  const [restaurant, setRestaurant] = useReducer(restaurantReducer, defaultState);
   return (
     <RestaurantContext.Provider value={{ restaurant, setRestaurant }}>
       {children}

@@ -42,20 +42,6 @@ const Home = () => {
     { name: "staff", route: "/Staff", icon: BsPersonBoundingBox },
   ];
 
-  useEffect(() => {
-    const restaurantId = localStorage.getItem("restaurant_id");
-    console.log(restaurantId);
-    
-    if (restaurantId?.length) {
-      setRestaurant({
-        type: "INIT",
-        payload: {
-          user: user?.id,
-          restaurant: restaurantId,
-        },
-      });
-    }
-  }, []);
   return (
     <>
       {/* header section */}
